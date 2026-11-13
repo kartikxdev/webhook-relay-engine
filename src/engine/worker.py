@@ -164,15 +164,16 @@ class AsyncRelayWorker:
         await self._drain_and_close()
 
     async def stop(self) -> None:
-        """Signal the worker loop to stop gracefully."""
+        """Signal the worker loop to stop gracefully and drain in-flight tasks."""
         logger.info("Signaling AsyncRelayWorker to stop...")
         self._stop_event.set()
+        await self._drain_and_close()
 
     async def _drain_and_close(self) -> None:
         """Drain any in-flight execution tasks and close HTTP client."""
         if self._in_flight_tasks:
             logger.info("Waiting for %d in-flight tasks to finish...", len(self._in_flight_tasks))
-            await asyncio.gather(*self._in_flight_tasks, return_exceptions=True)
+            await asyncio.gather(*list(self._in_flight_tasks), return_exceptions=True)
 
         if self._http_client and not self._http_client.is_closed:
             await self._http_client.aclose()

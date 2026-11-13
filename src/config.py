@@ -42,7 +42,7 @@ class RetryConfig(BaseModel):
     )
     max_backoff_seconds: float = Field(
         default=300.0,
-        gt=1.0,
+        gt=0.0,
         description="Cap on maximum delay between retries in seconds.",
     )
     backoff_factor: float = Field(
@@ -67,7 +67,7 @@ class WorkerConfig(BaseModel):
     )
     poll_interval_seconds: float = Field(
         default=0.5,
-        gt=0.05,
+        ge=0.01,
         le=10.0,
         description="Polling cadence for checking scheduled retries and new events.",
     )

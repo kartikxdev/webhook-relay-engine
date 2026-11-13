@@ -20,7 +20,11 @@ dependencies = [
     "pydantic-settings>=2.2.0",
     "aiosqlite>=0.20.0",
     "httpx>=0.27.0",
+    "click>=8.0.0",
 ]
+
+[project.scripts]
+relayforge = "src.cli.main:cli"
 
 [project.optional-dependencies]
 dev = [
@@ -56,4 +60,5 @@ minversion = "8.0"
 addopts = "-ra -q --strict-markers"
 testpaths = ["tests"]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 pythonpath = ["."]
