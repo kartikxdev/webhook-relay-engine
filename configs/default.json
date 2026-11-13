@@ -1,0 +1,26 @@
+{
+  "app_env": "development",
+  "log_level": "INFO",
+  "database": {
+    "db_path": "data/relayforge.db",
+    "busy_timeout_ms": 5000,
+    "enable_wal": true
+  },
+  "retry": {
+    "max_attempts": 5,
+    "base_backoff_seconds": 1.0,
+    "max_backoff_seconds": 300.0,
+    "backoff_factor": 2.0,
+    "jitter": true
+  },
+  "worker": {
+    "concurrency": 8,
+    "poll_interval_seconds": 0.5,
+    "batch_size": 20,
+    "request_timeout_seconds": 15.0
+  },
+  "security": {
+    "api_key": "rf_dev_secret_key_change_in_production",
+    "require_api_key": false
+  }
+}
